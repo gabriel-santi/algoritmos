@@ -59,3 +59,43 @@ def binary_search_pivot(nums, target):
 print(binary_search_pivot([1,3], 3))
 print(binary_search_pivot([1,3,5], 1))
 print(binary_search_pivot([4,5,6,7,8,1,2,3], 8))
+
+
+"""
+Given an integer target, return true if target is in matrix or false otherwise.
+
+You must write a solution in O(log(m * n)) time complexity.
+"""
+
+def searchMatrix(matrix, target):
+        startLine = 0
+        endLine = len(matrix) - 1
+        
+        while startLine <= endLine:
+            midLine = (startLine + endLine) // 2
+            currentLine = matrix[midLine]
+
+            if currentLine[0] <= target <= currentLine[-1]:
+                return binary_search(currentLine, target)
+            elif target > currentLine[-1]:
+                startLine = midLine + 1
+            else: 
+                endLine = midLine - 1
+        
+
+def binary_search(row, target):
+    start = 0
+    end = len(row) - 1
+
+    while start <= end:
+        mid = (start+end) // 2
+        midElement = row[mid]
+
+        if target == midElement:
+            return True
+        elif target > midElement:
+            start = mid + 1
+        else:
+            end = mid - 1
+    
+    return False

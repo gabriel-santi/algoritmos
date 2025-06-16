@@ -99,3 +99,58 @@ def binary_search(row, target):
             end = mid - 1
     
     return False
+
+'''
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/?envType=problem-list-v2&envId=array
+
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+If target is not found in the array, return [-1, -1].
+You must write an algorithm with O(log n) runtime complexity.
+
+Example 1:
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
+'''
+# Binary search
+class Solution(object):
+    def searchRange(self, nums, target):
+        def find_start(row, target):
+            left = 0
+            right = len(row) - 1
+            first = -1
+
+            while left <= right:
+                mid = (left+right) // 2
+                midElement = row[mid]
+
+                if midElement < target:
+                    left = mid + 1
+                else:
+                    if midElement == target:
+                        first = mid
+                    right = mid - 1
+            
+            return first
+
+        def find_end(row, target):
+            left = 0
+            right = len(row) - 1
+            last = -1
+
+            while left <= right:
+                mid = (left+right) // 2
+                midElement = row[mid]
+
+                if midElement > target:
+                        right = mid - 1
+                else:
+                    if target == midElement:
+                        last = mid
+                    left = mid + 1
+            
+            return last
+
+        return [find_start(nums, target), find_end(nums, target)]
+        
+s = Solution()
+print(s.searchRange([5,7,7,8,8,8,8,10], 8))
